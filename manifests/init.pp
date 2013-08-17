@@ -5,10 +5,21 @@
  directly, keeping the whole standard environment too, but for now this is easier
 */
 
-file { "/etc/profile.d/heroku_env_vars.sh":
+# Set up Heroku-esq env vars
+$envVarsScript = "/etc/profile.d/heroku_env_vars.sh"
+file { $envVarsScript:
     ensure => present,
     owner => 'root',
     group => 'root',
-    mode => '0644',
+    mode => '0744',
     source => "file:///vagrant/manifests/heroku_env_vars.sh"
+}
+->
+exec { 'bundle install':
+    path => ["/usr/bin", "/opt/ruby/bin"],
+    cwd => "/vagrant"
+}
+
+package { 'rerun':
+    provider => 'gem'
 }
