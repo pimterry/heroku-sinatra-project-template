@@ -18,3 +18,5 @@ _yardoc
 doc/
 /.vagrant
 /*.swp
+/manifests/*.iml
+/.idea
