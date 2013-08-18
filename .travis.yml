@@ -15,8 +15,13 @@ script:
   - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then rake staging_integration; fi
 
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then git push origin staging; fi
-  - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then git push origin prod; fi
+  # Various pushes to branches. Need to pipe to null to note expose OAuth token
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably staging > /dev/null 2>&1;
+    fi
+  - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then
+      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably prod > /dev/null 2>&1;
+    fi
 
 deploy:
   provider: heroku
@@ -25,3 +30,7 @@ deploy:
     staging: comparably
   api_key:
     secure: IrYwT2YiEep/tDEBhaBBI2QAttnxZ00uMoiqeGQnfs9wPq6XNVHFBUjvlpjP+qSRc3zHllgJgbzCpJYVk9/hRWmKHgPDL+RX+/0rNQpF/pTajWHQ+hZDgH3ty4+pavNLQNMuKqY48CZX57ihWHLiaW8318unM+BU1H3bh2KMrXg=
+
+env:
+  global:
+    secure: flfXtGCcYVlr2u9klmYsZ5Brh6PwFIqiFDJHQIc6kmxp0Z9fCFTyVJ8pWdafxnjvEoj783E433NYBaHW3N2W/e1xJW1Yg5BM1tKcv9lve5ZkJUXc2gMOfkgwqlEuvqDysDVk4MF8AJ6NmXuYWob3uFtp15z2CRzc9sBc7Nq10Ks=
