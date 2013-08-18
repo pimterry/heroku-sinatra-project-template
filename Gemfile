@@ -6,5 +6,5 @@ gem 'sinatra'
 
 group :test do
   gem 'test-unit'
-  gem 'rack-unit'
+  gem 'rack-test'
 end
