@@ -8,9 +8,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = 'http://dl.dropbox.com/u/1906634/heroku.box'
 
   config.vm.network :forwarded_port, guest: 8080, host: 8080
+  config.vm.network :forwarded_port, guest: 7474, host: 7474
+
+  config.vm.provision :shell, :path => 'puppet/install_librarian.sh'
 
   config.vm.provision :puppet do |puppet|
-    puppet.manifests_path = 'manifests'
+    puppet.manifests_path = 'puppet'
     puppet.manifest_file  = 'init.pp'
   end
 end
