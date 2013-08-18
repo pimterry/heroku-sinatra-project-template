@@ -17,10 +17,10 @@ script:
 after_success:
   # Various pushes to branches. Need to pipe to null to note expose OAuth token
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably staging > /dev/null 2>&1;
+      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably master:staging > /dev/null 2>&1;
     fi
   - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then
-      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably prod > /dev/null 2>&1;
+      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably staging:prod > /dev/null 2>&1;
     fi
 
 deploy:
