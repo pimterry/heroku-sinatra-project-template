@@ -4,7 +4,7 @@ rvm:
   - 2.0.0
 
 # This essentially defines a build pipeline: we first run the full set of locally runnable tests (unit + functional)
-# For master pushes, we then push on to the staging branch, and deploy to comparably-test.
+# For master pushes, we then deploy to comparably-test and push on to the staging branch.
 # Travis then builds the staging branch, which runs integration tests against the newly-live staging deployment
 # Once these pass, Travis deploys the code to live, and pushes to the prod branch (mostly just for reference)
 
@@ -14,15 +14,6 @@ script:
   - if [[ "$TRAVIS_BRANCH" != "staging" ]]; then rake local_test; fi
   - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then rake staging_integration; fi
 
-after_success:
-  # Various pushes to branches. Need to pipe to null to note expose OAuth token
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably master:staging > /dev/null 2>&1;
-    fi
-  - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then
-      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably staging:prod > /dev/null 2>&1;
-    fi
-
 deploy:
   provider: heroku
   app:
@@ -30,6 +21,15 @@ deploy:
     staging: comparably
   api_key:
     secure: IrYwT2YiEep/tDEBhaBBI2QAttnxZ00uMoiqeGQnfs9wPq6XNVHFBUjvlpjP+qSRc3zHllgJgbzCpJYVk9/hRWmKHgPDL+RX+/0rNQpF/pTajWHQ+hZDgH3ty4+pavNLQNMuKqY48CZX57ihWHLiaW8318unM+BU1H3bh2KMrXg=
+
+after_success:
+  # Various pushes to branches. Need to pipe to null to not expose OAuth token
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably master:staging > /dev/null 2>&1;
+    fi
+  - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then
+      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably staging:prod > /dev/null 2>&1;
+    fi
 
 env:
   global:
