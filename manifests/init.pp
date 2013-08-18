@@ -14,12 +14,8 @@ file { $envVarsScript:
     mode => '0744',
     source => "file:///vagrant/manifests/heroku_env_vars.sh"
 }
-->
+
 exec { 'bundle install':
     path => ["/usr/bin", "/opt/ruby/bin"],
     cwd => "/vagrant"
-}
-
-package { 'rerun':
-    provider => 'gem'
 }
