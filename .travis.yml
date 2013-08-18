@@ -31,6 +31,10 @@ after_success:
       git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably staging:prod > /dev/null 2>&1;
     fi
 
+branches:
+  except:
+    - prod # No point in building prod, since we've just pushed from successful staging & master builds already
+
 env:
   global:
     secure: flfXtGCcYVlr2u9klmYsZ5Brh6PwFIqiFDJHQIc6kmxp0Z9fCFTyVJ8pWdafxnjvEoj783E433NYBaHW3N2W/e1xJW1Yg5BM1tKcv9lve5ZkJUXc2gMOfkgwqlEuvqDysDVk4MF8AJ6NmXuYWob3uFtp15z2CRzc9sBc7Nq10Ks=
