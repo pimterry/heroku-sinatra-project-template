@@ -1,2 +1,2 @@
-require './src/app'
-run Sinatra::Application
+require './app/app'
+run Comparably
