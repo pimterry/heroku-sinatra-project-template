@@ -15,8 +15,8 @@ script:
   - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then rake staging_integration; fi
 
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master"]]; then git push origin staging; fi
-  - if [[ "$TRAVIS_BRANCH" == "staging"]]; then git push origin prod; fi
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then git push origin staging; fi
+  - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then git push origin prod; fi
 
 deploy:
   provider: heroku
