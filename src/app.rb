@@ -10,6 +10,10 @@ configure :development do
   enable :raise_errors
 end
 
+configure :production do
+  require 'newrelic_rpm'
+end
+
 set :app_file, __FILE__
 
 require_relative './routes/init.rb'

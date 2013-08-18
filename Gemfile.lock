@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    newrelic_rpm (3.6.6.147)
     puma (2.5.1)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
@@ -18,8 +19,10 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
+  newrelic_rpm
   puma
   rack-test
   rake
