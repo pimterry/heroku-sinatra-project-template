@@ -5,3 +5,9 @@ rvm:
 
 script:
   - rake unit
+
+deploy:
+  provider: heroku
+  app: comparably-test
+  api_key:
+    secure: IrYwT2YiEep/tDEBhaBBI2QAttnxZ00uMoiqeGQnfs9wPq6XNVHFBUjvlpjP+qSRc3zHllgJgbzCpJYVk9/hRWmKHgPDL+RX+/0rNQpF/pTajWHQ+hZDgH3ty4+pavNLQNMuKqY48CZX57ihWHLiaW8318unM+BU1H3bh2KMrXg=
