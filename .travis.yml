@@ -3,11 +3,25 @@ language: ruby
 rvm:
   - 2.0.0
 
+# This essentially defines a build pipeline: we first run the full set of locally runnable tests (unit + functional)
+# For master pushes, we then push on to the staging branch, and deploy to comparably-test.
+# Travis then builds the staging branch, which runs integration tests against the newly-live staging deployment
+# Once these pass, Travis deploys the code to live, and pushes to the prod branch (mostly just for reference)
+
+# These also a special case for pull requests: these never push or deploy, and run the whole local test suite only
+
 script:
-  - rake unit
+  - if [[ "$TRAVIS_BRANCH" != "staging" ]]; then rake local_test; fi
+  - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then rake staging_integration; fi
+
+after-success:
+  - if [[ "$TRAVIS_BRANCH" == "master"]]; then git push origin staging; fi
+  - if [[ "$TRAVIS_BRANCH" == "staging"]]; then git push origin prod; fi
 
 deploy:
   provider: heroku
-  app: comparably-test
+  app:
+    master: comparably-test
+    staging: comparably
   api_key:
     secure: IrYwT2YiEep/tDEBhaBBI2QAttnxZ00uMoiqeGQnfs9wPq6XNVHFBUjvlpjP+qSRc3zHllgJgbzCpJYVk9/hRWmKHgPDL+RX+/0rNQpF/pTajWHQ+hZDgH3ty4+pavNLQNMuKqY48CZX57ihWHLiaW8318unM+BU1H3bh2KMrXg=
