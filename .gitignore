@@ -17,6 +17,6 @@ tmp
 _yardoc
 doc/
 /.vagrant
-/*.swp
+*.swp
 /.idea
 *.iml
