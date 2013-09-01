@@ -15,4 +15,5 @@ group :test do
 
   gem 'cucumber'
   gem 'watir-webdriver'
+  gem 'phantomjs-binaries'
 end

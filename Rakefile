@@ -6,12 +6,12 @@ require 'cucumber/rake/task'
 # directly yourself most of the time
 task :local_test => [:unit, :js_unit, :functional, :js_functional]
 
-task :local_integration do
-  Rake::Task['integration'].invoke 'http://127.0.0.1:8080'
+task :local_integration do |t, args|
+  Rake::Task['integration'].invoke('http://127.0.0.1:8080', args)
 end
 
-task :staging_integration do
-  Rake::Task['integration'].invoke 'http://comparably-test.herokuapp.com'
+task :staging_integration do |t, args|
+  Rake::Task['integration'].invoke('http://comparably-test.herokuapp.com', args)
 end
 
 # Definitions for specific test suites:
@@ -37,6 +37,14 @@ end
 task :integration, :target do |t, args|
   puts "Running integration suite against #{args[:target]}"
   ENV['INTEGRATION_TEST_TARGET'] = args[:target]
+
+  if args[:wd_url] then
+    puts "Using webdriver at #{args[:wd_url]}"
+    ENV['WEBDRIVER_URL'] = args[:wd_url]
+  else
+    puts "Using local headless browser"
+  end
+
   Rake::Task['run_integration'].invoke
 end
 
