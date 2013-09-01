@@ -4,7 +4,7 @@ require 'cucumber/rake/task'
 
 # These explicit initial tasks are probably the only ones you want to run
 # directly yourself most of the time
-task :local_test => [:unit, :js_unit, :functional, :js_functional]
+task :local_test => [:unit, :js_unit, :component, :js_component]
 
 task :local_integration do |t, args|
   Rake::Task['integration'].invoke('http://127.0.0.1:8080', args)
@@ -25,12 +25,12 @@ task :js_unit do
 
 end
 
-Rake::TestTask.new 'functional' do |t|
+Rake::TestTask.new 'component' do |t|
   t.libs << '.'
-  t.test_files = FileList['test/functional/**/*_test.rb']
+  t.test_files = FileList['test/component/**/*_test.rb']
 end
 
-task :js_functional do
+task :js_component do
 
 end
 
