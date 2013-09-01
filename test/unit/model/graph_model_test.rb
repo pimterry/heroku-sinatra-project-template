@@ -1,13 +1,12 @@
-require 'test/unit'
-require 'mocha/setup'
+require 'rspec/mocks'
 require './app/model/graph_model'
 
-module UnitTests
-  class GraphModelTest < Test::Unit::TestCase
-    def test_creation
-      mock_neo = mock()
-      graph_model = Model::GraphModel.new(mock_neo)
-      assert_not_nil graph_model
+module Model
+  describe GraphModel do
+    it 'can be created with a Neo4J instance' do
+        neo = double('neo4j')
+        graph_model = GraphModel.new(neo)
+        expect(graph_model).to_not be_nil
     end
   end
 end

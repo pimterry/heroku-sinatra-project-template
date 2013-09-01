@@ -1,4 +1,4 @@
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 require 'cucumber'
 require 'cucumber/rake/task'
 
@@ -16,18 +16,16 @@ end
 
 # Definitions for specific test suites:
 
-Rake::TestTask.new 'unit' do |t|
-  t.libs << '.'
-  t.test_files = FileList['test/unit/**/*_test.rb']
+RSpec::Core::RakeTask.new(:unit) do |t|
+  t.pattern = 'test/unit/**/*_test.rb'
 end
 
 task :js_unit do
 
 end
 
-Rake::TestTask.new 'component' do |t|
-  t.libs << '.'
-  t.test_files = FileList['test/component/**/*_test.rb']
+RSpec::Core::RakeTask.new(:component) do |t|
+  t.pattern = 'test/component/**/*_test.rb'
 end
 
 task :js_component do

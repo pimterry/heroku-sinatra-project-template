@@ -1,21 +1,20 @@
 require 'sinatra'
-require 'test/unit'
 require 'rack/test'
 
 require './app/routes/index'
-require_relative './graph_model_mock'
+require_relative './graph_model_double'
 
-module UnitTests
-  class IndexTest < Test::Unit::TestCase
+module Routes
+  describe 'The index route' do
     include Rack::Test::Methods
 
     def app
-      GraphModelMock::mock_model_in_(Comparably)
+      GraphModelDouble::extend_to_inject_double(Comparably)
     end
 
-    def test_index
+    it "loads successfully" do
       get '/'
-      assert last_response.ok?
+      expect(last_response).to be_ok
     end
   end
 end

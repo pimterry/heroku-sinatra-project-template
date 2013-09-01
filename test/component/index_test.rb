@@ -1,22 +1,24 @@
 require 'sinatra'
-require 'test/unit'
 require 'rack/test'
 
 require './app/app'
-require_relative './neo_mock'
+require_relative './neo_double'
 
-module FunctionalTests
-  class IndexTest < Test::Unit::TestCase
+module ComponentTests
+  describe "The index page" do
     include Rack::Test::Methods
 
+    before(:each) do
+      NeoDouble::inject_neo_double_in_model
+    end
+
     def app
-      NeoMock::mock_neo_in_model
       Comparably
     end
 
-    def test_index
+    it "loads successfully" do
       get '/'
-      assert last_response.ok?
+      expect(last_response).to be_ok
     end
   end
 end
