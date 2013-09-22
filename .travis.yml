@@ -2,6 +2,7 @@ language: ruby
 
 rvm:
   - 2.0.0
+bundler_args: --without development production
 
 # This essentially defines a build pipeline: we first run the full set of locally runnable tests (unit + functional)
 # For master pushes, we then deploy to comparably-test and push on to the staging branch.
@@ -17,18 +18,19 @@ script:
 deploy:
   provider: heroku
   app:
-    master: comparably-test
-    staging: comparably
+    master: unnamedapp-test
+    staging: unnamedapp
   api_key:
-    secure: IrYwT2YiEep/tDEBhaBBI2QAttnxZ00uMoiqeGQnfs9wPq6XNVHFBUjvlpjP+qSRc3zHllgJgbzCpJYVk9/hRWmKHgPDL+RX+/0rNQpF/pTajWHQ+hZDgH3ty4+pavNLQNMuKqY48CZX57ihWHLiaW8318unM+BU1H3bh2KMrXg=
+    # secure: TODO uncomment and add your encrypted heroku deploy key here
 
 after_success:
+  # TODO update git urls below
   # Various pushes to branches. Need to pipe to null to not expose OAuth token
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably master:staging > /dev/null 2>&1;
+      git push https://${GH_OAUTH_TOKEN}@github.com/you/unnamedapp master:staging > /dev/null 2>&1;
     fi
   - if [[ "$TRAVIS_BRANCH" == "staging" ]]; then
-      git push https://${GH_OAUTH_TOKEN}@github.com/pimterry/comparably staging:prod > /dev/null 2>&1;
+      git push https://${GH_OAUTH_TOKEN}@github.com/you/unnamedapp staging:prod > /dev/null 2>&1;
     fi
 
 branches:
@@ -37,4 +39,4 @@ branches:
 
 env:
   global:
-    secure: flfXtGCcYVlr2u9klmYsZ5Brh6PwFIqiFDJHQIc6kmxp0Z9fCFTyVJ8pWdafxnjvEoj783E433NYBaHW3N2W/e1xJW1Yg5BM1tKcv9lve5ZkJUXc2gMOfkgwqlEuvqDysDVk4MF8AJ6NmXuYWob3uFtp15z2CRzc9sBc7Nq10Ks=
+    # secure: TODO uncomment and add your encrypted GH_OAUTH_TOKEN here

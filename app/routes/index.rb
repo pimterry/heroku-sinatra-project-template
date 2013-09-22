@@ -1,5 +1,5 @@
-class Comparably < Sinatra::Base
+class UnnamedApp < Sinatra::Base
   get '/' do
-    "Welcome to Comparably. Model = #{@graph_model.all_nodes}"
+    "Hello world"
   end
 end

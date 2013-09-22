@@ -11,7 +11,7 @@ task :local_integration do |t, args|
 end
 
 task :staging_integration do |t, args|
-  Rake::Task['integration'].invoke('http://comparably-test.herokuapp.com', args)
+  Rake::Task['integration'].invoke('http://unnamedapp.herokuapp.com', args)
 end
 
 # Definitions for specific test suites:

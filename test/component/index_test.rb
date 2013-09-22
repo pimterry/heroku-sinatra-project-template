@@ -2,18 +2,17 @@ require 'sinatra'
 require 'rack/test'
 
 require './app/app'
-require_relative './neo_double'
 
 module ComponentTests
   describe "The index page" do
     include Rack::Test::Methods
 
     before(:each) do
-      NeoDouble::inject_neo_double_in_model
+      # TODO: Add whatever's required to mock out actual DB accesses in your application
     end
 
     def app
-      Comparably
+      UnnamedApp
     end
 
     it "loads successfully" do

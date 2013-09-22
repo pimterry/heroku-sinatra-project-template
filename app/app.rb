@@ -1,12 +1,12 @@
 require 'sinatra'
 
-class Comparably < Sinatra::Base
+class UnnamedApp < Sinatra::Base
   set :app_file, __FILE__
 
   configure :development do
     require 'rack'
 
-    Comparably.reset!
+    UnnamedApp.reset!
     use Rack::Reloader
 
     enable :dump_errors
@@ -21,7 +21,6 @@ class Comparably < Sinatra::Base
 
   def initialize(app = nil)
     super(app)
-    @graph_model = Model.graph_model
   end
 
   require_relative './routes/init.rb'

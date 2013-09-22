@@ -9,6 +9,6 @@ class HomePage
   end
 
   def is_loaded
-    @browser.html.include? "Comparably"
+    @browser.html.include? "Hello world"
   end
 end

@@ -1,17 +1,22 @@
 source "https://rubygems.org"
 
 gem 'rake'
-gem 'puma'
 gem 'sinatra'
-gem 'newrelic_rpm'
 
-gem 'neography'
-
-group :test do
+group :local_test do
   gem 'rack-test'
   gem 'rspec'
+end
 
+group :integration_test do
   gem 'cucumber'
   gem 'watir-webdriver'
-  gem 'phantomjs-binaries'
+end
+
+group :development do
+end
+
+group :production do
+  gem 'newrelic_rpm'
+  gem 'puma'
 end

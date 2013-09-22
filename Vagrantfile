@@ -5,7 +5,7 @@ VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'heroku'
-  config.vm.box_url = 'http://dl.dropbox.com/u/1906634/heroku.box'
+  config.vm.box_url = 'https://dl.dropboxusercontent.com/s/rnc0p8zl91borei/heroku.box'
 
   config.vm.network :forwarded_port, guest: 8080, host: 8080
   config.vm.network :forwarded_port, guest: 7474, host: 7474
