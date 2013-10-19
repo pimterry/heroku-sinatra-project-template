@@ -19,8 +19,12 @@ file { $envVarsScript:
 
 package { "libffi-dev": }
 ->
-exec { 'bundle install':
+exec { 'bundle install --without development':
   path => ["/usr/bin", "/opt/ruby/bin"],
   cwd => "/vagrant"
 }
 
+exec { 'test 1 -eq "`psql -l | grep -c unnamedapp`" || createdb unnamedapp':
+  path => ['/bin/', '/usr/bin'],
+  user => 'postgres'
+}
