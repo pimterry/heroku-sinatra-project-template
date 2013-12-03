@@ -35,3 +35,6 @@ and `foreman start` to run the web service.
   * Add your encrypted github OAuth key to travis.yml by running `travis encrypt GH_OAUTH_TOKEN=YOURKEY --add`
   * Push to your github repo, and watch the travis build pipeline run the tests, release the test site, integration test
  the test site, and release the live site
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pimterry/heroku-sinatra-project-template/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
